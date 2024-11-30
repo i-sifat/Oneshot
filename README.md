@@ -1,69 +1,10 @@
-Here’s an updated and modernized version of the README:
-
----
-
-# OneShot
-
-A powerful tool to perform [Pixie Dust attacks](https://forums.kali.org/showthread.php?24286-WPS-Pixie-Dust-Attack-Offline-WPS-Attack) and other WPS-related operations without requiring monitor mode.
-
----
-
-## Commands
-
-### Install OneShot
-```bash
-sudo wget https://raw.githubusercontent.com/i-sifat/Oneshot/master/oneshot.py
-```
-
-### Install Vulnerable Device List (Optional)
-```bash
-sudo wget https://raw.githubusercontent.com/i-sifat/Oneshot/master/vulnwsc.txt
-```
-
-### Run OneShot
-```bash
-sudo python3 oneshot.py -i <interface> <options>
-```
-
-### Example: Start a Pixie Dust Attack
-```bash
-sudo python3 oneshot.py -i wlan0 -K
-```
-
----
-
-## Overview
-
-**OneShot** simplifies WPS attacks and Wi-Fi network scanning by integrating various tools, including Pixie Dust and 3WiFi.
-
-### Key Features:
-- **Pixie Dust attack**: Exploit WPS vulnerabilities without monitor mode.
-- **Offline WPS PIN generation**: Leverages [3WiFi](https://3wifi.stascorp.com/wpspin) for PIN generation.
-- **Online WPS brute force**: Run exhaustive PIN-based WPS attacks.
-- **Wi-Fi scanner**: Highlights networks vulnerable to attacks (requires `iw`).
-
----
-
-## Requirements
-- Python 3.6+
-- [Wpa supplicant](https://www.w1.fi/wpa_supplicant/)
-- [Pixiewps](https://github.com/wiire-a/pixiewps)
-- [iw](https://wireless.wiki.kernel.org/en/users/documentation/iw)
-
----
-
 ## Setup
 
 ### Termux (Android)
 
 **Note**: Root access is required.
 
-#### Automated Installer
-```bash
-curl -sSf https://raw.githubusercontent.com/drygdryg/OneShot_Termux_installer/master/installer.sh | bash
-```
-
-#### Manual Installation
+#### Installation
 1. **Install Requirements**:
     ```bash
     pkg install -y root-repo
@@ -151,6 +92,33 @@ Run OneShot with:
 ```bash
 --mtk-wifi
 ```
+
+---
+---
+
+# OneShot
+
+A powerful tool to perform [Pixie Dust attacks](https://forums.kali.org/showthread.php?24286-WPS-Pixie-Dust-Attack-Offline-WPS-Attack) and other WPS-related operations without requiring monitor mode.
+
+---
+
+## Overview
+
+**OneShot** simplifies WPS attacks and Wi-Fi network scanning by integrating various tools, including Pixie Dust and 3WiFi.
+
+### Key Features:
+- **Pixie Dust attack**: Exploit WPS vulnerabilities without monitor mode.
+- **Offline WPS PIN generation**: Leverages [3WiFi](https://3wifi.stascorp.com/wpspin) for PIN generation.
+- **Online WPS brute force**: Run exhaustive PIN-based WPS attacks.
+- **Wi-Fi scanner**: Highlights networks vulnerable to attacks (requires `iw`).
+
+---
+
+## Requirements
+- Python 3.6+
+- [Wpa supplicant](https://www.w1.fi/wpa_supplicant/)
+- [Pixiewps](https://github.com/wiire-a/pixiewps)
+- [iw](https://wireless.wiki.kernel.org/en/users/documentation/iw)
 
 ---
 
