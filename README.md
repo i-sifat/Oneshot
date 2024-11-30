@@ -1,3 +1,31 @@
+---
+
+# OneShot
+
+A powerful tool to perform [Pixie Dust attacks](https://forums.kali.org/showthread.php?24286-WPS-Pixie-Dust-Attack-Offline-WPS-Attack) and other WPS-related operations without requiring monitor mode.
+
+---
+
+## Overview
+
+**OneShot** simplifies WPS attacks and Wi-Fi network scanning by integrating various tools, including Pixie Dust and 3WiFi.
+
+### Key Features:
+- **Pixie Dust attack**: Exploit WPS vulnerabilities without monitor mode.
+- **Offline WPS PIN generation**: Leverages [3WiFi](https://3wifi.stascorp.com/wpspin) for PIN generation.
+- **Online WPS brute force**: Run exhaustive PIN-based WPS attacks.
+- **Wi-Fi scanner**: Highlights networks vulnerable to attacks (requires `iw`).
+
+---
+
+## Requirements
+- Python 3.6+
+- [Wpa supplicant](https://www.w1.fi/wpa_supplicant/)
+- [Pixiewps](https://github.com/wiire-a/pixiewps)
+- [iw](https://wireless.wiki.kernel.org/en/users/documentation/iw)
+
+---
+
 ## Setup
 
 ### Termux (Android)
@@ -6,28 +34,28 @@
 
 #### Installation
 
-0. **Single Line Command**:
-    
+1. **Single Line Command**:
     ```bash
-termux-setup-storage && apt update && apt upgrade && pkg install -y root-repo git tsu python wpa-supplicant pixiewps iw openssl && git clone --depth 1 https://github.com/i-sifat/Oneshot OneShot && sudo python OneShot/oneshot.py -i wlan0 --iface-down -K
+    termux-setup-storage && apt update && apt upgrade && pkg install -y root-repo git tsu python wpa-supplicant pixiewps iw openssl && git clone --depth 1 https://github.com/i-sifat/Oneshot OneShot && sudo python OneShot/oneshot.py -i wlan0 --iface-down -K
     ```
 
-1. ** Manual Install**:
-    ```bash
-    termux-setup-storage
-    pkg install -y root-repo
-    pkg install -y git tsu python wpa-supplicant pixiewps iw openssl
-    ```
-2. **Clone Repository**:
-    ```bash
-    git clone --depth 1 https://github.com/i-sifat/Oneshot OneShot
-    ```
-3. **Run**:
-    ```bash
-    sudo python OneShot/oneshot.py -i wlan0 --iface-down -K
-    ```
+2. **Manual Install**:
+    1. **Install Requirements**:
+        ```bash
+        termux-setup-storage
+        pkg install -y root-repo
+        pkg install -y git tsu python wpa-supplicant pixiewps iw openssl
+        ```
+    2. **Clone Repository**:
+        ```bash
+        git clone --depth 1 https://github.com/i-sifat/Oneshot OneShot
+        ```
+    3. **Run**:
+        ```bash
+        sudo python OneShot/oneshot.py -i wlan0 --iface-down -K
+        ```
 
-
+---
 
 ## Usage
 ```bash
@@ -102,35 +130,10 @@ Run OneShot with:
 ```
 
 ---
----
-
-# OneShot
-
-A powerful tool to perform [Pixie Dust attacks](https://forums.kali.org/showthread.php?24286-WPS-Pixie-Dust-Attack-Offline-WPS-Attack) and other WPS-related operations without requiring monitor mode.
-
----
-
-## Overview
-
-**OneShot** simplifies WPS attacks and Wi-Fi network scanning by integrating various tools, including Pixie Dust and 3WiFi.
-
-### Key Features:
-- **Pixie Dust attack**: Exploit WPS vulnerabilities without monitor mode.
-- **Offline WPS PIN generation**: Leverages [3WiFi](https://3wifi.stascorp.com/wpspin) for PIN generation.
-- **Online WPS brute force**: Run exhaustive PIN-based WPS attacks.
-- **Wi-Fi scanner**: Highlights networks vulnerable to attacks (requires `iw`).
-
----
-
-## Requirements
-- Python 3.6+
-- [Wpa supplicant](https://www.w1.fi/wpa_supplicant/)
-- [Pixiewps](https://github.com/wiire-a/pixiewps)
-- [iw](https://wireless.wiki.kernel.org/en/users/documentation/iw)
-
----
 
 ## Special Thanks
 - **rofl0r**: Original implementation.
 - **Monohrom**: Testing, bug fixes, and ideas.
 - **Wiire**: Development of Pixiewps.
+
+--- 
