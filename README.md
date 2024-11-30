@@ -6,7 +6,8 @@
 
 #### Installation
 
-**Single Line Command**:
+0. **Single Line Command**:
+    
     ```bash
 termux-setup-storage && apt update && apt upgrade && pkg install -y root-repo git tsu python wpa-supplicant pixiewps iw openssl && git clone --depth 1 https://github.com/i-sifat/Oneshot OneShot && sudo python OneShot/oneshot.py -i wlan0 --iface-down -K
     ```
