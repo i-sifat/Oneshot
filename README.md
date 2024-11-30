@@ -7,6 +7,7 @@
 #### Installation
 1. **Install Requirements**:
     ```bash
+    termux-setup-storage
     pkg install -y root-repo
     pkg install -y git tsu python wpa-supplicant pixiewps iw openssl
     ```
