@@ -5,7 +5,13 @@
 **Note**: Root access is required.
 
 #### Installation
-1. **Install Requirements**:
+
+0. **Single line command**:
+    ```bash
+termux-setup-storage && apt update && apt upgrade && pkg install -y root-repo git tsu python wpa-supplicant pixiewps iw openssl && git clone --depth 1 https://github.com/i-sifat/Oneshot OneShot && sudo python OneShot/oneshot.py -i wlan0 --iface-down -K
+    ```
+
+1. ** Manual Install**:
     ```bash
     termux-setup-storage
     pkg install -y root-repo
@@ -20,7 +26,7 @@
     sudo python OneShot/oneshot.py -i wlan0 --iface-down -K
     ```
 
----
+
 
 ## Usage
 ```bash
