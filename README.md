@@ -35,14 +35,13 @@ A powerful tool to perform [Pixie Dust attacks](https://forums.kali.org/showthre
 #### Installation
 
 1. **Single Line Command**:
-    ```bash
-    termux-setup-storage && apt update && apt upgrade && pkg install -y root-repo git tsu python wpa-supplicant pixiewps iw openssl && git clone --depth 1 https://github.com/i-sifat/Oneshot OneShot && sudo python OneShot/oneshot.py -i wlan0 --iface-down -K
-    ```
+    Coming soon!!
 
 2. **Manual Install**:
     1. **Install Requirements**:
         ```bash
         termux-setup-storage
+        apt update && apt upgrade
         pkg install -y root-repo
         pkg install -y git tsu python wpa-supplicant pixiewps iw openssl
         ```
