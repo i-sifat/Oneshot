@@ -47,11 +47,11 @@ A powerful tool to perform [Pixie Dust attacks](https://forums.kali.org/showthre
         ```
     2. **Clone Repository**:
         ```bash
-        git clone --depth 1 https://github.com/i-sifat/Oneshot OneShot
+        git clone --depth 1 https://github.com/i-sifat/Oneshot Wifi
         ```
     3. **Run**:
         ```bash
-        sudo python OneShot/oneshot.py -i wlan0 --iface-down -K
+        sudo python Wifi/oneshot.py -i wlan0 --iface-down -K
         ```
 
 ---
