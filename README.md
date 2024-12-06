@@ -51,7 +51,7 @@ A powerful tool to perform [Pixie Dust attacks](https://forums.kali.org/showthre
         ```
     3. **Run**:
         ```bash
-        sudo python Wifi/oneshot.py -i wlan0 --iface-down -K
+        sudo python Wifi/attack.py -i wlan0 --iface-down -K
         ```
 
 ---
