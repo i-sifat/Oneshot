@@ -839,7 +839,11 @@ class Companion:
         os.remove(self.tempconf)
 
     def __del__(self):
-        self.cleanup()
+              #self.cleanup()
+        try:
+            self.cleanup()
+        except (ImportError, AttributeError, TypeError):
+            pass
 
 
 class WiFiScanner:
@@ -1011,14 +1015,29 @@ class WiFiScanner:
         for n, network in network_list_items:
             number = f'{n})'
             model = '{} {}'.format(network['Model'], network['Model number'])
-            essid = truncateStr(network['ESSID'], 25)
+            
+            essid = truncateStr(network.get('ESSID', 'HIDDEN'), 25)
+            
+            # 计算ESSID中的中文字符数量
+            chinese_count = sum(1 for char in essid if '\u4e00' <= char <= '\u9fff')
+       
             deviceName = truncateStr(network['Device name'], 27)
-            line = '{:<4} {:<18} {:<25} {:<8} {:<4} {:<27} {:<}'.format(
-                number, network['BSSID'], essid,
-                network['Security type'], network['Level'],
-                deviceName, model
-                )
-            if (network['BSSID'], network['ESSID']) in self.stored:
+                  
+            # 动态调整ESSID列与Security type列之间的空格数
+            essid_padding = 25 - chinese_count
+            
+            line = '{:<4} {:<18} {:<{essid_padding}} {:<8} {:<4} {:<27} {:<}'.format(
+                number, 
+                network['BSSID'], 
+                essid,
+                network['Security type'], 
+                network['Level'],
+                deviceName, 
+                model,
+                essid_padding=essid_padding  # 传递动态计算的空格数
+            )
+            
+            if (network['BSSID'], network.get('ESSID', '')) in self.stored:
                 print(colored(line, color='yellow'))
             elif network['WPS locked']:
                 print(colored(line, color='red'))
