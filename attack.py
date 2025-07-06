@@ -16,7 +16,7 @@ import statistics
 import csv
 from pathlib import Path
 from typing import Dict
-
+import wcwidth
 
 class NetworkAddress:
     def __init__(self, mac):
@@ -972,16 +972,68 @@ class WiFiScanner:
         network_list = {(i + 1): network for i, network in enumerate(networks)}
 
         # Printing scanning results as table
-        def truncateStr(s, length, postfix='…'):
+        def truncateStr(s, length, postfix="…"):
             """
-            Truncate string with the specified length
-            @s — input string
-            @length — length of output string
+            Truncate strings according to display width (supports Full and half width characters)
+            :param s: input string
+            :param length: Maximum display width (unit: column)
+            :param postfix: Truncate suffixes (such as ellipses)
             """
-            if len(s) > length:
-                k = length - len(postfix)
-                s = s[:k] + postfix
-            return s
+            # Calculate the original display width
+            original_width = wcwidth.wcswidth(s)
+            
+            # Scenario 1: The original width is exactly the same or smaller
+            if original_width <= length:
+                # Calculate the number of spaces to be filled (by display width)
+                padding_needed = length - original_width
+                # Allocate spaces evenly to the right of the string
+                return s + ' ' * padding_needed
+            
+            # Scenario 2: Truncation is required
+            postfix_width = wcwidth.wcswidth(postfix)
+            max_allowed = length - postfix_width
+            
+            current_width = 0
+            truncated = []
+            for c in s:
+                char_width = wcwidth.wcswidth(c)
+                if current_width + char_width > max_allowed:
+                    break
+                truncated.append(c)
+                current_width += char_width
+            
+            # Construct basic results
+            result = "".join(truncated)
+            if len(truncated) < len(s):
+                result += postfix
+            
+            # Accurately adjust the display width
+            result_width = wcwidth.wcswidth(result)
+            if result_width > length:
+                # Remove pre truncation restrictions and switch to more precise truncation
+                # Emergency cutoff (to prevent exceeding the limit)
+                # Change to character by character processing to ensure not exceeding the limit
+                current_width = 0
+                safe_truncated = []
+                for c in result:
+                    char_width = wcwidth.wcswidth(c)
+                    if current_width + char_width > length:
+                        break
+                    safe_truncated.append(c)
+                    current_width += char_width
+                safe_result = "".join(safe_truncated)
+                # If the truncated string becomes shorter, add ellipsis
+                if len(safe_result) < len(result):
+                    safe_result += postfix
+                    # Recheck the width
+                    if wcwidth.wcswidth(safe_result) > length:
+                        # If the limit is still exceeded after adding ellipsis, remove the ellipsis
+                        safe_result = safe_result[:-1]
+                return safe_result
+            
+            # Fill in exact spaces
+            padding_needed = length - result_width
+            return result + ' ' * padding_needed
 
         def colored(text, color=None):
             """Returns colored text"""
@@ -1018,24 +1070,28 @@ class WiFiScanner:
             
             essid = truncateStr(network.get('ESSID', 'HIDDEN'), 25)
             
-           # Calculate the number of Chinese characters in ESSID
-             chinese_count = sum(1 for char in essid if '\u4e00' <= char <= '\u9fff')
-       
             deviceName = truncateStr(network['Device name'], 27)
-                  
-            # Dynamically adjust the number of spaces between the ESSID column and the Security type column
-            essid_padding = 25 - chinese_count
             
-            line = '{:<4} {:<18} {:<{essid_padding}} {:<8} {:<4} {:<27} {:<}'.format(
-                number, 
-                network['BSSID'], 
+            # Processing the display width of other fields
+            processed_number = truncateStr(number, 4)
+            processed_bssid = truncateStr(network['BSSID'], 18)
+            processed_security = truncateStr(network['Security type'], 8)
+            processed_level = truncateStr(str(network['Level']), 4)
+            processed_device = deviceName  # 27 columns of width have been processed
+            processed_model = model  # Assuming that the model fields do not need to be truncated or have been processed
+
+
+             # Directly concatenate the processed fields, separated by spaces in the middle
+            line_parts = [
+                processed_number,
+                processed_bssid,
                 essid,
-                network['Security type'], 
-                network['Level'],
-                deviceName, 
-                model,
-                essid_padding=essid_padding  # Transmitting the number of spaces for dynamic computation
-            )
+                 processed_security,
+                processed_level,
+                processed_device,
+                processed_model
+            ]
+            line = ' '.join(line_parts)
             
            if (network['BSSID'], network.get('ESSID', 'HIDDEN')) in self.stored:
                 print(colored(line, color='yellow'))
