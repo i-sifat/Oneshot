@@ -1018,12 +1018,12 @@ class WiFiScanner:
             
             essid = truncateStr(network.get('ESSID', 'HIDDEN'), 25)
             
-            # 计算ESSID中的中文字符数量
+           # Calculate the number of Chinese characters in ESSID
             chinese_count = sum(1 for char in essid if '\u4e00' <= char <= '\u9fff')
        
             deviceName = truncateStr(network['Device name'], 27)
                   
-            # 动态调整ESSID列与Security type列之间的空格数
+            # Dynamically adjust the number of spaces between the ESSID column and the Security type column
             essid_padding = 25 - chinese_count
             
             line = '{:<4} {:<18} {:<{essid_padding}} {:<8} {:<4} {:<27} {:<}'.format(
@@ -1034,7 +1034,7 @@ class WiFiScanner:
                 network['Level'],
                 deviceName, 
                 model,
-                essid_padding=essid_padding  # 传递动态计算的空格数
+                essid_padding=essid_padding  # Transmitting the number of spaces for dynamic computation
             )
             
             if (network['BSSID'], network.get('ESSID', '')) in self.stored:
