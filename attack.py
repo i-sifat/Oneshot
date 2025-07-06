@@ -1019,7 +1019,7 @@ class WiFiScanner:
             essid = truncateStr(network.get('ESSID', 'HIDDEN'), 25)
             
            # Calculate the number of Chinese characters in ESSID
-             chinese_count = sum(bool('\u4e00' <= char <= '\u9fff'))
+             chinese_count = sum(1 for char in essid if '\u4e00' <= char <= '\u9fff')
        
             deviceName = truncateStr(network['Device name'], 27)
                   
