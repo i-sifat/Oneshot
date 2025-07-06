@@ -1019,7 +1019,7 @@ class WiFiScanner:
             essid = truncateStr(network.get('ESSID', 'HIDDEN'), 25)
             
            # Calculate the number of Chinese characters in ESSID
-             chinese_count = sum(bool('\u4e00' <= char <= '\u9fff')
+             chinese_count = sum(bool('\u4e00' <= char <= '\u9fff'))
        
             deviceName = truncateStr(network['Device name'], 27)
                   
@@ -1037,7 +1037,7 @@ class WiFiScanner:
                 essid_padding=essid_padding  # Transmitting the number of spaces for dynamic computation
             )
             
-            if (network['BSSID'], network.get('ESSID', '')) in self.stored:
+           if (network['BSSID'], network.get('ESSID', 'HIDDEN')) in self.stored:
                 print(colored(line, color='yellow'))
             elif network['WPS locked']:
                 print(colored(line, color='red'))
